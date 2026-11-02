@@ -647,7 +647,8 @@ where
                             cursor.decode(pf, &rect.rect, stream, output_func).await?;
                         }
                         VncEncoding::ExtendedDesktopSizePseudo => {
-                            let update = crate::DesktopUpdate::read(stream, rect.rect, limits).await?;
+                            let update =
+                                crate::DesktopUpdate::read(stream, rect.rect, limits).await?;
                             if update.reason == crate::DesktopReason::ThisClient
                                 || !updates.is_empty()
                             {

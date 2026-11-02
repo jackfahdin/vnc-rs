@@ -415,6 +415,9 @@ async fn last_rect_sentinel_cannot_bypass_the_actual_rectangle_limit() {
     });
     let client = extended_with_limit(stream, 16).await;
     event(&client).await;
+    for _ in 0..16 {
+        assert!(matches!(event(&client).await, VncEvent::DesktopUpdate(_)));
+    }
     assert!(matches!(event(&client).await, VncEvent::Error(_)));
     client.close().await.unwrap();
     task.await.unwrap();

@@ -50,6 +50,7 @@ async fn server_layout_before_raw_or_zrle_pixels_applies_new_bounds_in_wire_orde
         });
         let client = VncConnector::new(stream)
             .set_auth_method(async { Ok(String::new()) })
+            .set_security_policy(crate::VncSecurityPolicy::NoneOnly)
             .set_pixel_format(PixelFormat::rgba())
             .add_encoding(encoding)
             .add_encoding(VncEncoding::ExtendedDesktopSizePseudo)
