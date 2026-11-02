@@ -5,7 +5,7 @@ This branch carries [NyaTerm](https://github.com/nyakang/nyaterm)'s hardening of
 
 - Fork: <https://github.com/nyakang/vnc-rs>
 - Upstream: <https://github.com/HsuJv/vnc-rs>
-- Base revision: `99ed1a28553c7594212adf30b9517d57fe46558d` (upstream `main`, 2026-10-13)
+- Base revision: `45f6d3688ec77ec7f4976dc313ce28ed82a375a5` (fixed upstream target, 2026-11-03)
 - Branch: `nyaterm`
 
 NyaTerm links this crate only from `nyaterm-vnc-helper`, an isolated helper
@@ -14,6 +14,14 @@ what keeps this parser — and the `flate2`/`image` decoders it pulls in — awa
 from server-controlled bytes in the main process. Raw must remain the required
 fallback, and ZRLE/Tight should only be advertised where the corresponding
 decoder tests and interoperability checks pass.
+
+## Current upstream sync (2026-11-03)
+
+Server-originated layout events are delivered before following pixel rectangles, as required by the new upstream decoder order. Client resize acknowledgements remain buffered until the complete update is accepted. Protocol limits, verified RA2 and explicit security policy remain. Layout fixtures explicitly allow None authentication; the LastRect limit test consumes legal layout events before checking rejection.
+
+Windows: all-feature debug and release suites (79 tests each), fmt check and strict all-target clippy passed. NyaTerm transport/terminal/VNC-helper check passed. Real VNC servers, browser WASM and other operating systems were not exercised.
+
+Previous published revision: `336ed94c9cce7cba93fa8cba33b5a5d01ef2c227`. Backup: `backup/nyaterm-20261103`. Older dated validation sections below describe historical baselines.
 
 ## Patches
 
